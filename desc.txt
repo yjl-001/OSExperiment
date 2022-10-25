@@ -1,3 +1,6 @@
 ==================OSExperiment=================
-EXP1:
-	initTest
+EXP0:Ready Base Environment
+	Base Environment:OpenEuler+Qemu+git+vim+rust
+	Problem:When execute "./configure --target-list=riscv64-softmmu,riscv64-linux-user",System Can't Find The Dependency Pixman-1.pc.
+	Solution:execute "suto yum install -y pixman pixman-devel" to install pixman-1.pc.
+EXP1://TODO
