@@ -1,1 +1,0 @@
-/root/project/OSExperiment/os/target/riscv64gc-unknown-none-elf/debug/os: /root/project/OSExperiment/os/src/console.rs /root/project/OSExperiment/os/src/entry.asm /root/project/OSExperiment/os/src/lang_items.rs /root/project/OSExperiment/os/src/main.rs /root/project/OSExperiment/os/src/sbi.rs
