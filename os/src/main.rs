@@ -1,6 +1,7 @@
 #![no_std]
 #![no_main]
 #![feature(panic_info_message)]
+#![feature(alloc_error_handler)]
 
 use core::arch::global_asm;
 
@@ -14,11 +15,13 @@ mod loader;
 mod config;
 mod task;
 mod timer;
+mod mm;
 
-trap::enable_timer_interrupt();
-timer::set_next_trigger();
+mm::init();
+extern crate alloc;
 global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
+
 
 fn clear_bss() {
     extern "C" {
@@ -37,6 +40,8 @@ pub fn rust_main() -> ! {
     trap::init();
     loader::load_apps();
     task::run_first_task();
+    trap::enable_timer_interrupt();
+    timer::set_next_trigger();
     panic!("Unreachable in rust_main!");
 }
 
