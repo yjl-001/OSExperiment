@@ -4,6 +4,10 @@
 #![feature(alloc_error_handler)]
 
 use core::arch::global_asm;
+extern crate alloc;
+
+#[macro_use]
+extern crate bitflags;
 
 #[macro_use]
 mod console;
@@ -16,10 +20,8 @@ mod config;
 mod task;
 mod timer;
 mod mm;
-#[macro_use]
-extern crate bitflags;
-mm::init();
-extern crate alloc;
+mod sync;
+
 global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
 
@@ -39,6 +41,7 @@ pub fn rust_main() -> ! {
     clear_bss();
     println!("[kernel] Hello, world!");
     trap::init();
+    mm::init();
     loader::load_apps();
     task::run_first_task();
     trap::enable_timer_interrupt();
