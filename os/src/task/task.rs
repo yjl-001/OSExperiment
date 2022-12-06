@@ -1,7 +1,7 @@
 use crate::mm::{MemorySet, MapPermission, PhysPageNum, KERNEL_SPACE, VirtAddr};
 use crate::trap::{TrapContext, trap_handler};
 use crate::config::{TRAP_CONTEXT, kernel_stack_position};
-use super::TaskContext;
+use crate::task::context::TaskContext;
 
 pub struct TaskControlBlock {
     pub task_status: TaskStatus,
@@ -53,5 +53,12 @@ impl TaskControlBlock {
         );
         task_control_block
     }
+}
+
+#[derive(Copy, Clone, PartialEq)]
+pub enum TaskStatus {
+    Ready,
+    Running,
+    Exited,
 }
 
